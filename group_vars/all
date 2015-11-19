@@ -1,0 +1,5 @@
+webserver_instance_type: t2.micro
+webserver_group: web
+webserver_image: ami-f0091d91
+webserver_region: us-west-2
+webserver_key: AWS-gwyn-key

@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    instance_name: dev-mysql-001 
+    region: us-west-2
+  tasks:
+    - name: get RDS instance facts
+      local_action: rds command=facts instance_name={{ instance_name }} region={{ region }}
+      register: mysqldb
+
+    - name: RDS endpoint is --> {{ mysqldb.instance.endpoint }}
+      debug: msg=" RDS endpoint is --> {{ mysqldb.instance.endpoint }}"

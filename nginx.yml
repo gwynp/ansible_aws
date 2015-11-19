@@ -1,0 +1,9 @@
+---
+- hosts: tag_Name_AnsibleTestInstance
+  user: ec2-user
+  sudo: yes
+  tasks:
+  - name: Update all packages to latest
+    yum: name=* state=latest
+  - name: install nginx
+    yum: pkg=nginx state=installed

@@ -1,0 +1,35 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    instance_name: dev-mysql-001 
+    region: us-west-2
+    size: 100
+    instance_type: db.t2.small # this is eligible for the free tier
+    db_engine: MySQL
+    engine_version: 5.6.23
+    db_name: mydb
+    username: dbadmin
+    password: dbmypassword
+  tasks:
+    - name: spin up a MySdl RDS instance
+      local_action:
+        module: rds
+        command: create
+        instance_name: "{{ instance_name }}"
+        region: "{{ region }}"
+        size: "{{ size }}"
+        instance_type: "{{ instance_type }}"
+        db_engine: "{{ db_engine }}"
+        engine_version: "{{ engine_version }}"
+        multi_zone: yes
+        db_name: "{{ db_name }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        wait: yes
+        wait_timeout: 1200 
+      register: mysqldb
+
+    - name: RDS endpoint is --> {{ mysqldb.instance.endpoint }}
+      debug: msg=" RDS endpoint is --> {{ mysqldb.instance.endpoint }}"
+

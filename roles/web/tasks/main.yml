@@ -1,0 +1,8 @@
+- name: install Apache
+  yum: pkg=httpd state=present
+
+- name: start Apache
+  service: name=httpd state=running enabled=yes
+
+- name: install Hello World page
+  copy: src=index.html dest=/var/www/html/index.html mode=0664
